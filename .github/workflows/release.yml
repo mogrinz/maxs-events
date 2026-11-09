@@ -31,6 +31,6 @@ jobs:
           if gh release view "$tag" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
             echo "Release $tag already exists; refusing to overwrite."; exit 1
           fi
-          gh release create "$tag" "../maxs-events-v1.0-offline.zip" \
+          gh release create "$tag" "../maxs-events.zip" \
             --repo "$GITHUB_REPOSITORY" --target "$GITHUB_SHA" \
             --title "Max's Events $tag" --notes-file RELEASE_V1.0.md

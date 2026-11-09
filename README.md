@@ -53,14 +53,14 @@ If `.local` name resolution fails, use the actual numeric Pi IP address.
 
 ## 2. Transfer the installer ZIP
 
-Download **`maxs-events-v1.0-offline.zip`** from this repository's [GitHub Releases](https://github.com/mogrinz/maxs-events/releases). Use the release ZIP, **not** GitHub's auto-generated Source code ZIP. The packaged archive contains a `maxs-events/` directory and bundled web fonts.
+Download **`maxs-events.zip`** from this repository's [GitHub Releases](https://github.com/mogrinz/maxs-events/releases). Use the release ZIP, **not** GitHub's auto-generated Source code ZIP. The packaged archive contains a `maxs-events/` directory and bundled web fonts.
 
 For example, from Windows PowerShell on your **computer**:
 
 ```powershell
 $piUser = 'YOUR_PI_USER'
 $piAddress = 'maxsevents.local'  # Or the Pi's actual IP
-$release = Join-Path $HOME 'Downloads\maxs-events-v1.0-offline.zip'
+$release = Join-Path $HOME 'Downloads\maxs-events.zip'
 scp "$release" "${piUser}@${piAddress}:~/"
 ssh "${piUser}@${piAddress}"
 ```
@@ -77,7 +77,7 @@ sudo apt install -y python3-venv python3-pip unzip network-manager \
     hostapd dnsmasq-base
 cd ~
 test ! -e "$HOME/maxs-events" || { echo 'STOP: Existing installation. See UPGRADING.md'; exit 1; }
-unzip maxs-events-v1.0-offline.zip
+unzip maxs-events.zip
 cd ~/maxs-events
 bash setup.sh
 ```

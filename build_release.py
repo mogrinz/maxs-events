@@ -38,5 +38,5 @@ def build(output):
         assert not z.testzip()
     return output,len(selected)
 if __name__=='__main__':
-    out,count=build(sys.argv[1] if len(sys.argv)>1 else ROOT.parent/'maxs-events-v1.0-offline.zip')
+    out,count=build(sys.argv[1] if len(sys.argv)>1 else ROOT.parent/'maxs-events.zip')
     print(f'{out}: {count} files SHA256 {hashlib.sha256(out.read_bytes()).hexdigest()}')

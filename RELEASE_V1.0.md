@@ -10,4 +10,4 @@ Initial MIT-licensed release of Max's Events: a self-hosted digital event-board 
 - 19 included ICS example files.
 - Optional local Pi Wi-Fi hotspot and documented Onn Google TV kiosk/browser configuration, including a tested ADB reconnection workaround.
 
-**For a new installation**, follow [README.md](README.md) and download the attached `maxs-events-v1.0-offline.zip`, rather than GitHub's automatic source archive. **For an upgrade**, back up the current installation and follow [UPGRADING.md](UPGRADING.md). Third-party fonts retain their respective licenses.
+**For a new installation**, follow [README.md](README.md) and download the attached `maxs-events.zip`, rather than GitHub's automatic source archive. **For an upgrade**, back up the current installation and follow [UPGRADING.md](UPGRADING.md). Third-party fonts retain their respective licenses.

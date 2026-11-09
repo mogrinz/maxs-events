@@ -2,7 +2,7 @@
 
 **Do not use the fresh-install `setup.sh` procedure to upgrade an existing working system.** Make an off-Pi backup of `~/maxs-events/data/`, and preferably an image of the Pi's SD card, before proceeding.
 
-Download the official `maxs-events-v1.0-offline.zip` release asset, **not** GitHub's source archive. Transfer it to the Pi's home directory. The release ZIP contains the `maxs-events/` directory, bundled fonts and the current `upgrade.sh`.
+Download the official `maxs-events.zip` release asset, **not** GitHub's source archive. Transfer it to the Pi's home directory. The release ZIP contains the `maxs-events/` directory, bundled fonts and the current `upgrade.sh`.
 
 On the Pi, as your normal user:
 
@@ -10,7 +10,7 @@ On the Pi, as your normal user:
 cd ~
 test -d maxs-events/data || { echo 'Not an existing installation; use README.md'; exit 1; }
 cp -a maxs-events maxs-events-backup-before-v1.0
-unzip -o maxs-events-v1.0-offline.zip
+unzip -o maxs-events.zip
 cd ~/maxs-events
 bash upgrade.sh
 ```

@@ -20,7 +20,7 @@ class AdoptionTests(unittest.TestCase):
         self.nm.current = OTHER
         self.nm.profiles = lambda: [
             {'uuid': HOME, 'name': 'old wifi', 'mode': 'infrastructure'},
-            {'uuid': OTHER, 'name': 'Ogrinz', 'mode': 'infrastructure'},
+            {'uuid': OTHER, 'name': 'TestNetwork', 'mode': 'infrastructure'},
             {'uuid': AP, 'name': 'hotspot', 'mode': 'ap'},
         ]
         self.controller = Controller(self.nm, Path(self.temp.name)/'state.json', lambda: 1000, lambda callback: None)

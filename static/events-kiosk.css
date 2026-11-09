@@ -1,0 +1,574 @@
+*{box-sizing:border-box}html,body{height:100%;margin:0}body{--bg:#f2f6fa;--card:#fff;--ink:#182d46;--accent:#2364a4;--muted:#536b82;--header:#fff;--divider:#dce9f6;--line:#2364a4;background:var(--bg);color:var(--ink);font-family:Arial,Helvetica,sans-serif;overflow:hidden;display:flex;flex-direction:column}header{background:var(--header);padding:clamp(6px,1vh,20px) clamp(8px,2vw,42px);display:flex;align-items:center;justify-content:space-between;gap:12px;flex:none;box-shadow:0 2px 7px #0001}h1{font-size:clamp(17px,3vw,64px);margin:0;font-weight:750;overflow-wrap:anywhere}#date{text-transform:uppercase;letter-spacing:1.2px;color:var(--muted);font-size:clamp(10px,1vw,22px);margin-top:3px}#clock{font-size:clamp(18px,2.8vw,60px);font-weight:700;white-space:nowrap;flex-shrink:0}main{flex:1;min-height:0;overflow:hidden;margin:clamp(2px,.4vh,9px) clamp(3px,.7vw,18px);position:relative}#track{will-change:transform;--row-height:120px;--row-gap:4px;--scale:1;--time-width:25%;--time-font:22px}.event{display:grid;grid-template-columns:var(--time-width) minmax(0,1fr);gap:clamp(7px,.8vw,12px);background:var(--card);border-radius:clamp(3px,.8vw,12px);margin:0 0 var(--row-gap);padding:clamp(2px,.4vh,7px) clamp(4px,.85vw,15px);min-height:0;overflow:visible;align-items:center}.time{font-size:var(--time-font);font-weight:700;color:var(--accent);border-right:2px solid var(--divider);height:100%;padding-right:var(--time-inset,12px);display:grid;grid-template-columns:var(--start-width) var(--dash-width) var(--end-width);align-content:center;align-items:center;column-gap:0;overflow:visible;white-space:nowrap;font-variant-numeric:tabular-nums}.time-start{text-align:right}.time-dash{text-align:center}.time-end{text-align:left}.all-day{grid-column:1 / -1;text-align:center}.body{min-width:0;width:100%;overflow:visible;display:flex;flex-direction:column;justify-content:center}.name{font-size:var(--title-font,24px);font-weight:700;line-height:1.05;overflow-wrap:anywhere;word-break:normal}.description{font-size:var(--desc-font,18px);line-height:1.1;color:var(--muted);margin-top:2px;white-space:pre-wrap;overflow-wrap:anywhere;word-break:normal}.cycle-separator{height:10px;background:var(--line);margin:0 0 var(--row-gap);border-radius:3px}.empty{text-align:center;padding:12vh 2vw;font-size:clamp(16px,3vw,48px);color:var(--muted)}@media(max-width:460px){header{padding:7px}#date{letter-spacing:.3px}.event{gap:4px;padding:2px 4px}.description{margin-top:1px}}
+/* Generic, image-free display themes */
+body[data-theme="wedding"]{--bg:#f8f1f0;--card:#fffaf8;--ink:#633d54;--accent:#a35e78;--muted:#845f70;--header:#fff8f7;--divider:#eed5de;--line:#c5889c;font-family:Georgia,serif}
+body[data-theme="party"]{--bg:#26153d;--card:#392357;--ink:#fff3fb;--accent:#f9bf65;--muted:#eacded;--header:#2e1b46;--divider:#9864a8;--line:#e75fb5}
+body[data-theme="holiday"]{--bg:#f4f1e7;--card:#fffdf8;--ink:#24483c;--accent:#b3393a;--muted:#536b57;--header:#faf9f1;--divider:#c0d6cb;--line:#3e8065}
+body[data-theme="conference"]{--bg:#f2f6fa;--card:#fff;--ink:#182d46;--accent:#2364a4;--muted:#536b82;--header:#fff;--divider:#dce9f6;--line:#2364a4}
+body[data-theme="mixers"]{--bg:#202932;--card:#2c3a46;--ink:#f5f5ef;--accent:#f0b989;--muted:#c6d2d8;--header:#273540;--divider:#64757e;--line:#e4a677}
+body[data-theme="training"]{--bg:#eef6f5;--card:#fff;--ink:#164d4f;--accent:#157c80;--muted:#52747a;--header:#f6fdfb;--divider:#aed9d3;--line:#157c80}
+body[data-theme="gaming"]{--bg:#0a1020;--card:#15213a;--ink:#edf4ff;--accent:#77e2fa;--muted:#a1b7d7;--header:#101c33;--divider:#405778;--line:#f378cc;font-family:Verdana,sans-serif}
+body[data-theme="festival"]{--bg:#fff1dc;--card:#fffaf0;--ink:#57333c;--accent:#d34f44;--muted:#8c6865;--header:#ffe9c9;--divider:#efb97a;--line:#e2a62e}
+body[data-theme="academic"]{--bg:#f5f2ed;--card:#fff;--ink:#233750;--accent:#7f482f;--muted:#586b78;--header:#faf7f2;--divider:#dbd0c4;--line:#7f482f;font-family:Georgia,serif}
+body[data-theme="sports"]{--bg:#091c28;--card:#123345;--ink:#fff;--accent:#c6f46a;--muted:#d0dee5;--header:#0c2837;--divider:#436878;--line:#c6f46a;font-family:Arial,sans-serif}
+body[data-theme="museum"]{--bg:#ebe8e2;--card:#f9f8f5;--ink:#322d2a;--accent:#81694a;--muted:#6a6259;--header:#f5f3ee;--divider:#cec8bf;--line:#a78b65;font-family:Georgia,serif}
+body[data-theme="religious"]{--bg:#f5f2eb;--card:#fffefb;--ink:#343e54;--accent:#86704f;--muted:#66718a;--header:#fbfaf7;--divider:#ded5c4;--line:#86704f;font-family:Georgia,serif}
+body[data-theme="memorial"]{--bg:#eaecef;--card:#f9fafb;--ink:#343943;--accent:#5f6e7e;--muted:#78828c;--header:#f4f5f6;--divider:#cdd3da;--line:#6a7886;font-family:Georgia,serif}
+body[data-theme="vacation"]{--bg:#eaf7f8;--card:#fffefa;--ink:#19546b;--accent:#e47b4a;--muted:#4d7a81;--header:#f2fbfc;--divider:#b4e0e6;--line:#2699a8}
+body[data-theme="wellness"]{--bg:#eff5ee;--card:#fafdf8;--ink:#38594e;--accent:#648c71;--muted:#657d6f;--header:#f6faf4;--divider:#c6dac9;--line:#83a78c;font-family:Georgia,serif}
+
+/* RC1: keep times visually connected to the event heading on tall rows. */
+.event{align-items:start}.time{align-content:start;padding-top:clamp(5px,.8vh,14px)}.body{justify-content:flex-start;padding-top:clamp(2px,.4vh,7px)}
+/* Additional theme personality, without pictures or remote font dependencies. */
+body[data-theme="wedding"]{--radius:22px;--border:1px solid #e5cbd4;font-family:Georgia,serif}body[data-theme="wedding"] h1{font-style:italic;font-weight:500}
+body[data-theme="party"]{--radius:24px;--border:2px solid #e75fb5}body[data-theme="party"] .event:nth-of-type(even){--card:#4a286b}
+body[data-theme="holiday"]{--radius:8px;--border-left:6px solid #3e8065}body[data-theme="holiday"] header{border-bottom:5px solid #b3393a}
+body[data-theme="conference"]{--radius:6px;--border-left:4px solid #2364a4}
+body[data-theme="mixers"]{--radius:24px;--border:1px solid #96755d}body[data-theme="mixers"] h1{letter-spacing:1px}
+body[data-theme="training"]{--radius:8px;--border-left:7px solid #157c80}body[data-theme="training"] .name{font-weight:800}
+body[data-theme="gaming"]{--radius:0;--border:2px solid #3b5a88}body[data-theme="gaming"] header{border-bottom:4px solid #f378cc}body[data-theme="gaming"] h1{text-transform:uppercase;letter-spacing:1.3px}
+body[data-theme="festival"]{--radius:18px;--border-left:7px solid #e2a62e}body[data-theme="festival"] h1{font-weight:900}
+body[data-theme="academic"]{--radius:3px;--border-bottom:2px solid #bda68c}body[data-theme="academic"] h1{font-variant:small-caps}
+body[data-theme="sports"]{--radius:0;--border-left:9px solid #c6f46a}body[data-theme="sports"] h1{text-transform:uppercase;font-style:italic}
+body[data-theme="museum"]{--radius:0;--border-bottom:1px solid #bcb2a4}body[data-theme="museum"] .name{font-weight:500}
+body[data-theme="religious"]{--radius:12px;--border-top:3px solid #b9a47a}body[data-theme="religious"] h1{font-weight:500}
+body[data-theme="memorial"]{--radius:2px;--border-bottom:1px solid #b9bec4}body[data-theme="memorial"] h1{font-weight:500}
+body[data-theme="vacation"]{--radius:26px;--border-left:6px solid #e47b4a}body[data-theme="vacation"] header{border-bottom:4px solid #2699a8}
+body[data-theme="wellness"]{--radius:18px;--border:1px solid #afcbb3}body[data-theme="wellness"] h1{font-weight:500}
+.event{border-radius:var(--radius,10px);border:var(--border,0);border-left:var(--border-left,0);border-bottom:var(--border-bottom,0);border-top:var(--border-top,0)}
+/* RC2: utility-first event cards, no decorative per-theme stripes or border filigree. */
+.event{border:0!important;border-radius:8px!important;align-items:center!important;grid-template-columns:var(--time-width) minmax(0,1fr);gap:clamp(5px,.9vw,18px)}
+.event.has-source-color{grid-template-columns:var(--time-width) auto minmax(0,1fr)}
+.time{align-content:center!important;display:flex!important;align-items:center!important;justify-content:center;gap:clamp(3px,.4vw,10px);border-right:1px solid var(--divider);padding:0 clamp(8px,.9vw,20px) 0 0!important;height:100%;white-space:nowrap}
+.time-start,.time-end{flex:0 0 auto}.time-dash{flex:0 0 auto}.time.all-day{text-align:center}
+.body{justify-content:center!important;padding:0!important}.event.tall .time{align-content:start!important;align-items:flex-start!important;padding-top:clamp(12px,2vh,38px)!important}
+.source-color{width:clamp(5px,.55vw,9px);height:100%;min-height:20px;background:#528bd0;border-radius:0;align-self:stretch}
+#legend{flex:0 0 auto;min-height:36px;background:var(--header);padding:8px 16px;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:12px 24px;border-top:1px solid var(--divider);font-size:clamp(12px,1.3vw,20px)}#legend[hidden]{display:none}.legend-item{display:flex;align-items:center;gap:8px}.legend-dot{display:inline-block;width:13px;height:13px;border-radius:2px}
+/* Detail View: featured event owns the space; Later remains anchored below. */
+.detail-view #track{height:100%;display:flex;flex-direction:column;gap:clamp(8px,1.5vh,20px);transform:none!important}
+.featured{flex:1 1 auto;min-height:0;display:flex;flex-direction:column}.later{flex:0 1 auto;min-height:0;display:flex;flex-direction:column}.section-label{font-size:clamp(17px,2.7vw,45px);font-weight:800;letter-spacing:.06em;color:var(--accent);padding:clamp(6px,1vh,14px) clamp(10px,1.5vw,24px)}.later .section-label{font-size:clamp(14px,1.8vw,28px)}
+.detail-card{background:var(--card);border-radius:10px;display:flex;align-items:stretch;flex:1 1 auto;min-height:0;padding:clamp(10px,2vw,40px);gap:clamp(12px,1.5vw,28px)}.detail-copy{display:flex;flex-direction:column;justify-content:center;min-width:0;gap:clamp(7px,.8vh,16px);overflow:auto;overflow-wrap:anywhere}.detail-time{font-size:clamp(18px,3.5vw,70px);font-weight:700;color:var(--accent);font-variant-numeric:tabular-nums}.detail-title{font-size:clamp(22px,5vw,104px);font-weight:750;line-height:1.06}.detail-description{font-size:clamp(15px,2.5vw,44px);line-height:1.2;color:var(--muted);white-space:pre-wrap;overflow-wrap:anywhere}.detail-card .source-color{flex:none;width:clamp(6px,.7vw,12px)}.later .detail-card{padding:clamp(9px,1.1vw,22px);min-height:clamp(68px,16vh,190px);flex:0 0 auto}.later .detail-time{font-size:clamp(14px,1.7vw,32px)}.later .detail-title{font-size:clamp(16px,2.3vw,44px)}.later .detail-description{font-size:clamp(12px,1.4vw,27px)}.detail-empty{background:var(--card);padding:24px;font-size:clamp(18px,2.7vw,36px);border-radius:10px}
+
+/* Compact, column-aligned time ranges: shared dash axis, very little side gap. */
+.time:not(.all-day){display:grid!important;grid-template-columns:var(--start-width) var(--dash-width) var(--end-width);column-gap:0;justify-content:center;align-content:center;align-items:center}.time-start{text-align:right}.time-dash{text-align:center}.time-end{text-align:left}.time.all-day{display:flex!important;justify-content:center;align-items:center}.event.tall .time{align-content:start!important;align-items:start!important}
+
+/* RC2: single stable event grid.  The source-color slot is reserved for every
+   row while color coding is on, even when this particular source has no color. */
+.event,.event.has-source-color{grid-template-columns:var(--time-width) minmax(0,1fr);align-items:center}
+.event.color-slots,.event.color-slots.has-source-color{grid-template-columns:var(--time-width) var(--color-slot-width,12px) minmax(0,1fr)}
+.event .time.all-day{grid-column:auto!important;display:flex!important;align-items:center!important;justify-content:center!important;min-width:0;text-align:center}
+.event .source-color{width:100%;min-width:0;min-height:0;height:100%;align-self:stretch;border-radius:0;margin:0}
+.event .source-color.color-empty{background:transparent!important}
+/* Each detail section reserves exactly the same bar column, whether colored or not. */
+.detail-card{--detail-color-width:clamp(8px,.95vw,15px);--detail-color-gap:clamp(10px,1.5vw,24px)}
+.detail-card.color-slots{display:grid;grid-template-columns:var(--detail-color-width) minmax(0,1fr);gap:var(--detail-color-gap)}
+.detail-card.color-slots>.source-color{width:100%;height:100%;margin:0;border-radius:0}
+.detail-card.color-slots>.detail-copy{grid-column:2;min-width:0}
+.later .detail-card{--detail-color-gap:clamp(10px,1.5vw,24px);--detail-color-width:clamp(8px,.95vw,15px)}
+
+/* Both featured and Later cards start their optional color bar at the same X. */
+.detail-card.color-slots,.later .detail-card.color-slots{padding-left:clamp(10px,2vw,40px)}
+
+
+/* RC3 theme redesigns: stronger personality for Wedding, Conference, Gaming, and Museum.
+   These overrides are intentionally appended after the base theme rules so the
+   restore-point archive can cleanly roll back if desired. */
+@font-face{font-family:"ME Jost";src:url("/static/fonts/Jost.ttf") format("truetype");font-display:swap}
+@font-face{font-family:"ME Cormorant";src:url("/static/fonts/google-c8ece188b6978712.woff2") format('woff2');font-display:swap}
+@font-face{font-family:"ME Courgette";src:url("/static/fonts/Courgette-Regular.ttf") format("truetype");font-display:swap}
+@font-face{font-family:"ME Oswald";src:url("/static/fonts/Oswald.ttf") format("truetype");font-display:swap}
+
+body[data-theme="wedding"]{
+  --bg:#fbf4f4;--card:#fffdfb;--ink:#5b3650;--accent:#a0617b;--muted:#826776;--header:#fff8f7;--divider:#ead7df;--line:#c78ea4;
+  font-family:"ME Jost",Arial,Helvetica,sans-serif;
+  background:radial-gradient(circle at top left,#fffaf9 0,#fbf4f4 52%,#f6eceb 100%);
+}
+body[data-theme="wedding"] header{position:relative;background:linear-gradient(180deg,#fffefe 0,#fff7f7 100%);box-shadow:0 6px 22px rgba(123,76,98,.10)}
+body[data-theme="wedding"] header::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:linear-gradient(90deg,transparent 0,#e8ccd6 12%,#c78ea4 50%,#e8ccd6 88%,transparent 100%)}
+body[data-theme="wedding"] h1{font-family:"ME Courgette", "ME Cormorant", Georgia, serif;font-weight:400;letter-spacing:.01em;color:#6f4157}
+body[data-theme="wedding"] #date{font-family:"ME Jost",Arial,sans-serif;letter-spacing:.22em;color:#9b7986}
+body[data-theme="wedding"] #clock{font-family:"ME Jost",Arial,sans-serif;color:#7f5167}
+body[data-theme="wedding"] .event,
+body[data-theme="wedding"] .detail-card,
+body[data-theme="wedding"] .later .detail-card{background:linear-gradient(180deg,#fffefd 0,#fff9f8 100%);border:1px solid #ead7df!important;border-radius:18px!important;box-shadow:0 10px 24px rgba(125,83,99,.08)}
+body[data-theme="wedding"] .time,
+body[data-theme="wedding"] .detail-time{font-family:"ME Jost",Arial,sans-serif;color:#b05e78;font-weight:700}
+body[data-theme="wedding"] .name,
+body[data-theme="wedding"] .detail-title{font-family:"ME Cormorant",Georgia,serif;font-weight:700;letter-spacing:.01em;color:#6a3550}
+body[data-theme="wedding"] .description,
+body[data-theme="wedding"] .detail-description{font-family:"ME Jost",Arial,sans-serif;color:#7d6670}
+body[data-theme="wedding"] .section-label{font-family:"ME Jost",Arial,sans-serif;letter-spacing:.24em;color:#b05e78}
+body[data-theme="wedding"] #legend{background:rgba(255,248,247,.96);border-top:1px solid #ead7df}
+
+body[data-theme="conference"]{
+  --bg:#edf3f8;--card:#ffffff;--ink:#173048;--accent:#1f5f96;--muted:#5d7388;--header:#f9fcff;--divider:#d7e4f0;--line:#1f5f96;
+  font-family:"ME Jost",Arial,Helvetica,sans-serif;
+  background:linear-gradient(180deg,#f8fbff 0,#edf3f8 24%,#e9f0f7 100%);
+}
+body[data-theme="conference"] header{position:relative;background:linear-gradient(180deg,#ffffff 0,#f7fbff 100%);box-shadow:0 4px 18px rgba(18,61,102,.09)}
+body[data-theme="conference"] header::after{content:"";position:absolute;left:0;right:0;bottom:0;height:4px;background:linear-gradient(90deg,#1f5f96 0,#4e98d4 45%,#9cc3e6 100%)}
+body[data-theme="conference"] h1{font-family:"ME Jost",Arial,sans-serif;font-weight:700;letter-spacing:-.02em;color:#183a57}
+body[data-theme="conference"] #date{font-family:"ME Jost",Arial,sans-serif;letter-spacing:.18em;color:#69839a}
+body[data-theme="conference"] #clock{font-family:"ME Oswald",Arial,sans-serif;font-weight:500;letter-spacing:.02em;color:#204d74}
+body[data-theme="conference"] .event,
+body[data-theme="conference"] .detail-card,
+body[data-theme="conference"] .later .detail-card{background:#fff;border:1px solid #d8e5ef!important;border-radius:10px!important;box-shadow:0 4px 16px rgba(17,57,96,.06)}
+body[data-theme="conference"] .time,
+body[data-theme="conference"] .detail-time{font-family:"ME Oswald",Arial,sans-serif;color:#2468a6;letter-spacing:.01em;font-weight:600}
+body[data-theme="conference"] .name,
+body[data-theme="conference"] .detail-title{font-family:"ME Jost",Arial,sans-serif;font-weight:750;color:#173048}
+body[data-theme="conference"] .description,
+body[data-theme="conference"] .detail-description{font-family:"ME Jost",Arial,sans-serif;color:#617587}
+body[data-theme="conference"] .section-label{font-family:"ME Oswald",Arial,sans-serif;letter-spacing:.18em;color:#2468a6}
+body[data-theme="conference"] #legend{background:rgba(249,252,255,.97);border-top:1px solid #d7e4f0}
+
+body[data-theme="gaming"]{
+  --bg:#090f1f;--card:#121e35;--ink:#eff8ff;--accent:#66ebff;--muted:#adc0df;--header:#0e1730;--divider:#2b4667;--line:#ff57d1;
+  font-family:"ME Jost",Arial,Helvetica,sans-serif;
+  background:radial-gradient(circle at top,#142447 0,#0b1227 45%,#080d1c 100%);
+}
+body[data-theme="gaming"] header{position:relative;background:linear-gradient(180deg,#101a35 0,#0d1730 100%);box-shadow:0 0 18px rgba(62,234,255,.08)}
+body[data-theme="gaming"] header::after{content:"";position:absolute;left:0;right:0;bottom:0;height:3px;background:linear-gradient(90deg,#66ebff 0,#ff57d1 100%)}
+body[data-theme="gaming"] h1{font-family:"ME Oswald",Arial,sans-serif;text-transform:uppercase;letter-spacing:.05em;font-weight:600;color:#eef9ff;text-shadow:0 0 14px rgba(102,235,255,.18)}
+body[data-theme="gaming"] #date{font-family:"ME Jost",Arial,sans-serif;letter-spacing:.22em;color:#93b2de}
+body[data-theme="gaming"] #clock{font-family:"ME Oswald",Arial,sans-serif;font-weight:500;letter-spacing:.02em;color:#79efff;text-shadow:0 0 10px rgba(102,235,255,.22)}
+body[data-theme="gaming"] .event,
+body[data-theme="gaming"] .detail-card,
+body[data-theme="gaming"] .later .detail-card{background:linear-gradient(180deg,#13203a 0,#10192e 100%);border:1px solid #314f78!important;border-radius:12px!important;box-shadow:inset 0 0 0 1px rgba(103,235,255,.06),0 10px 22px rgba(5,10,22,.38)}
+body[data-theme="gaming"] .time,
+body[data-theme="gaming"] .detail-time{font-family:"ME Oswald",Arial,sans-serif;color:#72eeff;letter-spacing:.01em;font-weight:600;text-shadow:0 0 10px rgba(102,235,255,.16)}
+body[data-theme="gaming"] .name,
+body[data-theme="gaming"] .detail-title{font-family:"ME Jost",Arial,sans-serif;font-weight:800;color:#f4fbff}
+body[data-theme="gaming"] .description,
+body[data-theme="gaming"] .detail-description{font-family:"ME Jost",Arial,sans-serif;color:#b1c4e3}
+body[data-theme="gaming"] .section-label{font-family:"ME Oswald",Arial,sans-serif;letter-spacing:.20em;color:#ff7be0}
+body[data-theme="gaming"] #legend{background:rgba(12,20,38,.95);border-top:1px solid #2b4667}
+
+body[data-theme="museum"]{
+  --bg:#eee8de;--card:#fbf8f1;--ink:#30261d;--accent:#7a5837;--muted:#6e655b;--header:#f6f1e8;--divider:#d2c6b7;--line:#9b7c57;
+  font-family:"ME Jost",Arial,Helvetica,sans-serif;
+  background:linear-gradient(180deg,#f3eee6 0,#ede7dd 30%,#e8e0d4 100%);
+}
+body[data-theme="museum"] header{position:relative;background:linear-gradient(180deg,#f8f5ee 0,#f2ece2 100%);box-shadow:0 5px 18px rgba(74,58,36,.08)}
+body[data-theme="museum"] header::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:linear-gradient(90deg,transparent 0,#c7b297 18%,#9b7c57 50%,#c7b297 82%,transparent 100%)}
+body[data-theme="museum"] h1{font-family:"ME Cormorant",Georgia,serif;font-weight:600;letter-spacing:.02em;color:#3c2f22}
+body[data-theme="museum"] #date{font-family:"ME Jost",Arial,sans-serif;letter-spacing:.20em;color:#857a6d}
+body[data-theme="museum"] #clock{font-family:"ME Jost",Arial,sans-serif;color:#705539}
+body[data-theme="museum"] .event,
+body[data-theme="museum"] .detail-card,
+body[data-theme="museum"] .later .detail-card{background:linear-gradient(180deg,#fcfaf5 0,#f8f3ea 100%);border:1px solid #dbcdb8!important;border-radius:10px!important;box-shadow:0 6px 16px rgba(54,39,20,.05)}
+body[data-theme="museum"] .time,
+body[data-theme="museum"] .detail-time{font-family:"ME Jost",Arial,sans-serif;color:#8a6239;font-weight:700}
+body[data-theme="museum"] .name,
+body[data-theme="museum"] .detail-title{font-family:"ME Cormorant",Georgia,serif;font-weight:700;letter-spacing:.01em;color:#3f3124}
+body[data-theme="museum"] .description,
+body[data-theme="museum"] .detail-description{font-family:"ME Jost",Arial,sans-serif;color:#6d645b}
+body[data-theme="museum"] .section-label{font-family:"ME Jost",Arial,sans-serif;letter-spacing:.18em;color:#8a6239}
+body[data-theme="museum"] #legend{background:rgba(246,241,232,.96);border-top:1px solid #d2c6b7}
+
+
+/* v0.10 RC4: PDF-specified event list themes, pages 2–16 of Event List Themes.pdf.
+   Overrides RC3 without changing responsive sizing, time alignment or event data logic.
+   Font faces are locally served when download_theme_fonts.py has been run.
+   Browser-safe fallbacks apply if the optional font bundle has not yet been downloaded. */
+/* Clear decorative RC3 header overlays before applying PDF styles. */
+body[data-theme] header::after{content:none}
+/* Wedding: Ivory & Gold */
+body[data-theme="wedding"]{--bg:#F6F0E7;--card:#FFFDF9;--ink:#3B2C22;--accent:#94703C;--muted:#65503F;--header:#FFFDF9;--divider:#E8DCCB;--line:#D9A5A0;background:#F6F0E7;color:#3B2C22;}
+body[data-theme="wedding"] header{background:#FFFDF9;box-shadow:none;border:1px solid #E8DCCB;border-bottom:2px solid #D9A5A0;}
+body[data-theme="wedding"] h1{font-family:"Great Vibes",Georgia,serif;font-weight:400;font-style:normal;color:#4A372B;text-transform:none;letter-spacing:.01em;text-shadow:none;}
+body[data-theme="wedding"] #date{font-family:"Cormorant Garamond",Georgia,serif;font-weight:600;font-style:normal;color:#6F5947;text-transform:uppercase;letter-spacing:.19em;}
+body[data-theme="wedding"] #clock{font-family:"Cormorant Garamond",Georgia,serif;font-weight:600;font-style:normal;color:#94703C;text-shadow:none;}
+body[data-theme="wedding"] .time,body[data-theme="wedding"] .detail-time{font-family:"Cormorant Garamond",Georgia,serif;font-weight:600;font-style:italic;color:#94703C;text-shadow:none;}
+body[data-theme="wedding"] .name,body[data-theme="wedding"] .detail-title{font-family:"Lora",Georgia,serif;font-weight:600;font-style:normal;color:#3B2C22;letter-spacing:normal;}
+body[data-theme="wedding"] .description,body[data-theme="wedding"] .detail-description{font-family:"Lora",Georgia,serif;font-weight:400;font-style:italic;color:#65503F;}
+body[data-theme="wedding"] .event,body[data-theme="wedding"] .detail-card,body[data-theme="wedding"] .later .detail-card,body[data-theme="wedding"] .detail-empty{background:#FFFDF9;border:1px solid #E8DCCB!important;border-radius:5px!important;box-shadow:none;}
+body[data-theme="wedding"] .time{border-right:1px solid #E8DCCB;}
+body[data-theme="wedding"] .section-label{color:#94703C;font-family:"Lora",Georgia,serif;text-shadow:none;}
+body[data-theme="wedding"] #legend{background:#FFFDF9;border-top:1px solid #E8DCCB;color:#4A372B;}
+/* Business Conference: Corporate Navy */
+body[data-theme="conference"]{--bg:#EDF1F5;--card:#FFFFFF;--ink:#14202E;--accent:#1F5FC9;--muted:#56657A;--header:#0F2A4A;--divider:#D3DCE6;--line:#18A7A0;background:#EDF1F5;color:#14202E;}
+body[data-theme="conference"] header{background:#0F2A4A;box-shadow:none;border:1px solid #D3DCE6;border-bottom:2px solid #18A7A0;}
+body[data-theme="conference"] h1{font-family:"Montserrat",Arial,sans-serif;font-weight:800;font-style:normal;color:#FFFFFF;text-transform:uppercase;letter-spacing:.01em;text-shadow:none;}
+body[data-theme="conference"] #date{font-family:"Inter",Arial,sans-serif;font-weight:500;font-style:normal;color:#A9BCD3;text-transform:uppercase;letter-spacing:.19em;}
+body[data-theme="conference"] #clock{font-family:"Barlow",Arial,sans-serif;font-weight:600;font-style:normal;color:#FFFFFF;text-shadow:none;}
+body[data-theme="conference"] .time,body[data-theme="conference"] .detail-time{font-family:"Barlow",Arial,sans-serif;font-weight:600;font-style:normal;color:#1F5FC9;text-shadow:none;}
+body[data-theme="conference"] .name,body[data-theme="conference"] .detail-title{font-family:"Inter",Arial,sans-serif;font-weight:600;font-style:normal;color:#14202E;letter-spacing:normal;}
+body[data-theme="conference"] .description,body[data-theme="conference"] .detail-description{font-family:"Inter",Arial,sans-serif;font-weight:400;font-style:normal;color:#56657A;}
+body[data-theme="conference"] .event,body[data-theme="conference"] .detail-card,body[data-theme="conference"] .later .detail-card,body[data-theme="conference"] .detail-empty{background:#FFFFFF;border:1px solid #D3DCE6!important;border-radius:5px!important;box-shadow:none;}
+body[data-theme="conference"] .time{border-right:1px solid #D3DCE6;}
+body[data-theme="conference"] .section-label{color:#1F5FC9;font-family:"Inter",Arial,sans-serif;text-shadow:none;}
+body[data-theme="conference"] #legend{background:#0F2A4A;border-top:1px solid #D3DCE6;color:#FFFFFF;}
+/* Museum: Gallery Placard */
+body[data-theme="museum"]{--bg:#F1EEE8;--card:#FFFFFF;--ink:#1E1D1B;--accent:#8C2F2B;--muted:#5A564F;--header:#1E1D1B;--divider:#DDD8CF;--line:#C8963E;background:#F1EEE8;color:#1E1D1B;}
+body[data-theme="museum"] header{background:#1E1D1B;box-shadow:none;border:1px solid #DDD8CF;border-bottom:2px solid #C8963E;}
+body[data-theme="museum"] h1{font-family:"DM Serif Display",Georgia,serif;font-weight:400;font-style:normal;color:#F5F2EC;text-transform:none;letter-spacing:.01em;text-shadow:none;}
+body[data-theme="museum"] #date{font-family:"Work Sans",Arial,sans-serif;font-weight:500;font-style:normal;color:#B8B2A7;text-transform:uppercase;letter-spacing:.19em;}
+body[data-theme="museum"] #clock{font-family:"Work Sans",Arial,sans-serif;font-weight:500;font-style:normal;color:#F5F2EC;text-shadow:none;}
+body[data-theme="museum"] .time,body[data-theme="museum"] .detail-time{font-family:"Work Sans",Arial,sans-serif;font-weight:600;font-style:normal;color:#8C2F2B;text-shadow:none;}
+body[data-theme="museum"] .name,body[data-theme="museum"] .detail-title{font-family:"Source Serif 4",Georgia,serif;font-weight:600;font-style:normal;color:#1E1D1B;letter-spacing:normal;}
+body[data-theme="museum"] .description,body[data-theme="museum"] .detail-description{font-family:"Work Sans",Arial,sans-serif;font-weight:400;font-style:normal;color:#5A564F;}
+body[data-theme="museum"] .event,body[data-theme="museum"] .detail-card,body[data-theme="museum"] .later .detail-card,body[data-theme="museum"] .detail-empty{background:#FFFFFF;border:1px solid #DDD8CF!important;border-radius:5px!important;box-shadow:none;}
+body[data-theme="museum"] .time{border-right:1px solid #DDD8CF;}
+body[data-theme="museum"] .section-label{color:#8C2F2B;font-family:"Source Serif 4",Georgia,serif;text-shadow:none;}
+body[data-theme="museum"] #legend{background:#1E1D1B;border-top:1px solid #DDD8CF;color:#F5F2EC;}
+/* Retro: Arcade Phosphor */
+body[data-theme="gaming"]{--bg:#0A0E1A;--card:#121A2E;--ink:#F2F4F8;--accent:#3DFF8F;--muted:#A3B1CC;--header:#050810;--divider:#28334A;--line:#33C8FF;background:#0A0E1A;color:#F2F4F8;}
+body[data-theme="gaming"] header{background:#050810;box-shadow:none;border:1px solid #28334A;border-bottom:2px solid #33C8FF;}
+body[data-theme="gaming"] h1{font-family:"Press Start 2P",monospace;font-weight:400;font-style:normal;color:#FFB000;text-transform:uppercase;letter-spacing:.025em;text-shadow:none;}
+body[data-theme="gaming"] #date{font-family:"IBM Plex Mono",monospace;font-weight:400;font-style:normal;color:#8FA0BF;text-transform:uppercase;letter-spacing:.19em;}
+body[data-theme="gaming"] #clock{font-family:"VT323",monospace;font-weight:400;font-style:normal;color:#3DFF8F;text-shadow:none;}
+body[data-theme="gaming"] .time,body[data-theme="gaming"] .detail-time{font-family:"VT323",monospace;font-weight:400;font-style:normal;color:#3DFF8F;text-shadow:none;}
+body[data-theme="gaming"] .name,body[data-theme="gaming"] .detail-title{font-family:"Chakra Petch",Arial,sans-serif;font-weight:600;font-style:normal;color:#F2F4F8;letter-spacing:normal;}
+body[data-theme="gaming"] .description,body[data-theme="gaming"] .detail-description{font-family:"IBM Plex Mono",monospace;font-weight:400;font-style:normal;color:#A3B1CC;}
+body[data-theme="gaming"] .event,body[data-theme="gaming"] .detail-card,body[data-theme="gaming"] .later .detail-card,body[data-theme="gaming"] .detail-empty{background:#121A2E;border:1px solid #28334A!important;border-radius:5px!important;box-shadow:none;}
+body[data-theme="gaming"] .time{border-right:1px solid #28334A;}
+body[data-theme="gaming"] .section-label{color:#3DFF8F;font-family:"Chakra Petch",Arial,sans-serif;text-shadow:none;}
+body[data-theme="gaming"] #legend{background:#050810;border-top:1px solid #28334A;color:#FFB000;}
+/* Party: Confetti Pop */
+body[data-theme="party"]{--bg:#1B0B33;--card:#2A1650;--ink:#FFFFFF;--accent:#FFD23F;--muted:#CDBFEA;--header:#12062A;--divider:#44297A;--line:#FF4FA3;background:#1B0B33;color:#FFFFFF;}
+body[data-theme="party"] header{background:#12062A;box-shadow:none;border:1px solid #44297A;border-bottom:2px solid #FF4FA3;}
+body[data-theme="party"] h1{font-family:"Bungee",Arial,sans-serif;font-weight:400;font-style:normal;color:#FF4FA3;text-transform:none;letter-spacing:.01em;text-shadow:none;}
+body[data-theme="party"] #date{font-family:"Nunito",Arial,sans-serif;font-weight:500;font-style:normal;color:#CDBFEA;text-transform:uppercase;letter-spacing:.19em;}
+body[data-theme="party"] #clock{font-family:"Fredoka",Arial,sans-serif;font-weight:600;font-style:normal;color:#FFD23F;text-shadow:none;}
+body[data-theme="party"] .time,body[data-theme="party"] .detail-time{font-family:"Fredoka",Arial,sans-serif;font-weight:600;font-style:normal;color:#FFD23F;text-shadow:none;}
+body[data-theme="party"] .name,body[data-theme="party"] .detail-title{font-family:"Fredoka",Arial,sans-serif;font-weight:600;font-style:normal;color:#FFFFFF;letter-spacing:normal;}
+body[data-theme="party"] .description,body[data-theme="party"] .detail-description{font-family:"Nunito",Arial,sans-serif;font-weight:500;font-style:normal;color:#CDBFEA;}
+body[data-theme="party"] .event,body[data-theme="party"] .detail-card,body[data-theme="party"] .later .detail-card,body[data-theme="party"] .detail-empty{background:#2A1650;border:1px solid #44297A!important;border-radius:5px!important;box-shadow:none;}
+body[data-theme="party"] .time{border-right:1px solid #44297A;}
+body[data-theme="party"] .section-label{color:#FFD23F;font-family:"Fredoka",Arial,sans-serif;text-shadow:none;}
+body[data-theme="party"] #legend{background:#12062A;border-top:1px solid #44297A;color:#FF4FA3;}
+/* Holiday: Evergreen & Cranberry */
+body[data-theme="holiday"]{--bg:#F7F3EA;--card:#FFFFFF;--ink:#1F2D27;--accent:#A8233A;--muted:#55605A;--header:#1F4D3A;--divider:#E3DCCB;--line:#D4A537;background:#F7F3EA;color:#1F2D27;}
+body[data-theme="holiday"] header{background:#1F4D3A;box-shadow:none;border:1px solid #E3DCCB;border-bottom:2px solid #D4A537;}
+body[data-theme="holiday"] h1{font-family:"Berkshire Swash",Georgia,serif;font-weight:400;font-style:normal;color:#FBF6EA;text-transform:none;letter-spacing:.01em;text-shadow:none;}
+body[data-theme="holiday"] #date{font-family:"Merriweather Sans",Arial,sans-serif;font-weight:600;font-style:normal;color:#CFE3D6;text-transform:uppercase;letter-spacing:.19em;}
+body[data-theme="holiday"] #clock{font-family:"Merriweather Sans",Arial,sans-serif;font-weight:700;font-style:normal;color:#FBF6EA;text-shadow:none;}
+body[data-theme="holiday"] .time,body[data-theme="holiday"] .detail-time{font-family:"Merriweather Sans",Arial,sans-serif;font-weight:700;font-style:normal;color:#A8233A;text-shadow:none;}
+body[data-theme="holiday"] .name,body[data-theme="holiday"] .detail-title{font-family:"Merriweather",Georgia,serif;font-weight:700;font-style:normal;color:#1F2D27;letter-spacing:normal;}
+body[data-theme="holiday"] .description,body[data-theme="holiday"] .detail-description{font-family:"Merriweather Sans",Arial,sans-serif;font-weight:400;font-style:normal;color:#55605A;}
+body[data-theme="holiday"] .event,body[data-theme="holiday"] .detail-card,body[data-theme="holiday"] .later .detail-card,body[data-theme="holiday"] .detail-empty{background:#FFFFFF;border:1px solid #E3DCCB!important;border-radius:5px!important;box-shadow:none;}
+body[data-theme="holiday"] .time{border-right:1px solid #E3DCCB;}
+body[data-theme="holiday"] .section-label{color:#A8233A;font-family:"Merriweather",Georgia,serif;text-shadow:none;}
+body[data-theme="holiday"] #legend{background:#1F4D3A;border-top:1px solid #E3DCCB;color:#FBF6EA;}
+/* Training: Classroom Clear */
+body[data-theme="training"]{--bg:#F4F6F8;--card:#FFFFFF;--ink:#1D2733;--accent:#0B6E78;--muted:#55606D;--header:#FFFFFF;--divider:#D8DEE5;--line:#3BAA6E;background:#F4F6F8;color:#1D2733;}
+body[data-theme="training"] header{background:#FFFFFF;box-shadow:none;border:1px solid #D8DEE5;border-bottom:2px solid #3BAA6E;}
+body[data-theme="training"] h1{font-family:"Source Sans 3",Arial,sans-serif;font-weight:700;font-style:normal;color:#1D2733;text-transform:none;letter-spacing:.01em;text-shadow:none;}
+body[data-theme="training"] #date{font-family:"Source Sans 3",Arial,sans-serif;font-weight:600;font-style:normal;color:#5E6A78;text-transform:uppercase;letter-spacing:.19em;}
+body[data-theme="training"] #clock{font-family:"Roboto Mono",monospace;font-weight:500;font-style:normal;color:#1D2733;text-shadow:none;}
+body[data-theme="training"] .time,body[data-theme="training"] .detail-time{font-family:"Roboto Mono",monospace;font-weight:500;font-style:normal;color:#0B6E78;text-shadow:none;}
+body[data-theme="training"] .name,body[data-theme="training"] .detail-title{font-family:"Source Sans 3",Arial,sans-serif;font-weight:600;font-style:normal;color:#1D2733;letter-spacing:normal;}
+body[data-theme="training"] .description,body[data-theme="training"] .detail-description{font-family:"Source Sans 3",Arial,sans-serif;font-weight:400;font-style:normal;color:#55606D;}
+body[data-theme="training"] .event,body[data-theme="training"] .detail-card,body[data-theme="training"] .later .detail-card,body[data-theme="training"] .detail-empty{background:#FFFFFF;border:1px solid #D8DEE5!important;border-radius:5px!important;box-shadow:none;}
+body[data-theme="training"] .time{border-right:1px solid #D8DEE5;}
+body[data-theme="training"] .section-label{color:#0B6E78;font-family:"Source Sans 3",Arial,sans-serif;text-shadow:none;}
+body[data-theme="training"] #legend{background:#FFFFFF;border-top:1px solid #D8DEE5;color:#1D2733;}
+/* Mixer: Lounge Teal & Copper */
+body[data-theme="mixers"]{--bg:#10262B;--card:#16343A;--ink:#F3F1EC;--accent:#F2C49B;--muted:#A9C2C2;--header:#0B1C20;--divider:#24494F;--line:#4FC1B5;background:#10262B;color:#F3F1EC;}
+body[data-theme="mixers"] header{background:#0B1C20;box-shadow:none;border:1px solid #24494F;border-bottom:2px solid #4FC1B5;}
+body[data-theme="mixers"] h1{font-family:"Sora",Arial,sans-serif;font-weight:700;font-style:normal;color:#E59A63;text-transform:none;letter-spacing:.01em;text-shadow:none;}
+body[data-theme="mixers"] #date{font-family:"Outfit",Arial,sans-serif;font-weight:500;font-style:normal;color:#A9C2C2;text-transform:uppercase;letter-spacing:.19em;}
+body[data-theme="mixers"] #clock{font-family:"Outfit",Arial,sans-serif;font-weight:500;font-style:normal;color:#F3F1EC;text-shadow:none;}
+body[data-theme="mixers"] .time,body[data-theme="mixers"] .detail-time{font-family:"Outfit",Arial,sans-serif;font-weight:600;font-style:normal;color:#F2C49B;text-shadow:none;}
+body[data-theme="mixers"] .name,body[data-theme="mixers"] .detail-title{font-family:"Outfit",Arial,sans-serif;font-weight:600;font-style:normal;color:#F3F1EC;letter-spacing:normal;}
+body[data-theme="mixers"] .description,body[data-theme="mixers"] .detail-description{font-family:"Outfit",Arial,sans-serif;font-weight:400;font-style:normal;color:#A9C2C2;}
+body[data-theme="mixers"] .event,body[data-theme="mixers"] .detail-card,body[data-theme="mixers"] .later .detail-card,body[data-theme="mixers"] .detail-empty{background:#16343A;border:1px solid #24494F!important;border-radius:5px!important;box-shadow:none;}
+body[data-theme="mixers"] .time{border-right:1px solid #24494F;}
+body[data-theme="mixers"] .section-label{color:#F2C49B;font-family:"Outfit",Arial,sans-serif;text-shadow:none;}
+body[data-theme="mixers"] #legend{background:#0B1C20;border-top:1px solid #24494F;color:#E59A63;}
+/* Festival: Sunset Fest */
+body[data-theme="festival"]{--bg:#FFF4E4;--card:#FFFFFF;--ink:#2B1A12;--accent:#C2410C;--muted:#6B4E3D;--header:#D9481F;--divider:#F1D9BE;--line:#FFC23D;background:#FFF4E4;color:#2B1A12;}
+body[data-theme="festival"] header{background:#D9481F;box-shadow:none;border:1px solid #F1D9BE;border-bottom:2px solid #FFC23D;}
+body[data-theme="festival"] h1{font-family:"Anton",Arial,sans-serif;font-weight:400;font-style:normal;color:#FFFFFF;text-transform:uppercase;letter-spacing:.01em;text-shadow:none;}
+body[data-theme="festival"] #date{font-family:"Rubik",Arial,sans-serif;font-weight:600;font-style:normal;color:#FFE6D6;text-transform:uppercase;letter-spacing:.19em;}
+body[data-theme="festival"] #clock{font-family:"Anton",Arial,sans-serif;font-weight:400;font-style:normal;color:#FFFFFF;text-shadow:none;}
+body[data-theme="festival"] .time,body[data-theme="festival"] .detail-time{font-family:"Anton",Arial,sans-serif;font-weight:400;font-style:normal;color:#C2410C;text-shadow:none;}
+body[data-theme="festival"] .name,body[data-theme="festival"] .detail-title{font-family:"Rubik",Arial,sans-serif;font-weight:700;font-style:normal;color:#2B1A12;letter-spacing:normal;}
+body[data-theme="festival"] .description,body[data-theme="festival"] .detail-description{font-family:"Rubik",Arial,sans-serif;font-weight:400;font-style:normal;color:#6B4E3D;}
+body[data-theme="festival"] .event,body[data-theme="festival"] .detail-card,body[data-theme="festival"] .later .detail-card,body[data-theme="festival"] .detail-empty{background:#FFFFFF;border:1px solid #F1D9BE!important;border-radius:5px!important;box-shadow:none;}
+body[data-theme="festival"] .time{border-right:1px solid #F1D9BE;}
+body[data-theme="festival"] .section-label{color:#C2410C;font-family:"Rubik",Arial,sans-serif;text-shadow:none;}
+body[data-theme="festival"] #legend{background:#D9481F;border-top:1px solid #F1D9BE;color:#FFFFFF;}
+body[data-theme="festival"] header{border-image:none;}body[data-theme="festival"] header::after{content:"";position:absolute;left:0;right:0;bottom:0;height:3px;background:linear-gradient(90deg,#FFC23D,#D6336C);}
+body[data-theme="festival"] header{position:relative;border-bottom:0;}
+/* Academic: Ivy & Oxford */
+body[data-theme="academic"]{--bg:#F5F3EE;--card:#FFFFFF;--ink:#1E2433;--accent:#8E1B2E;--muted:#565C69;--header:#22304A;--divider:#DAD6CC;--line:#C9A227;background:#F5F3EE;color:#1E2433;}
+body[data-theme="academic"] header{background:#22304A;box-shadow:none;border:1px solid #DAD6CC;border-bottom:2px solid #C9A227;}
+body[data-theme="academic"] h1{font-family:"Libre Baskerville",Georgia,serif;font-weight:700;font-style:normal;color:#F7F4EC;text-transform:none;letter-spacing:.01em;text-shadow:none;}
+body[data-theme="academic"] #date{font-family:"Libre Franklin",Arial,sans-serif;font-weight:500;font-style:normal;color:#BFC7D6;text-transform:uppercase;letter-spacing:.19em;}
+body[data-theme="academic"] #clock{font-family:"Libre Franklin",Arial,sans-serif;font-weight:600;font-style:normal;color:#F7F4EC;text-shadow:none;}
+body[data-theme="academic"] .time,body[data-theme="academic"] .detail-time{font-family:"Libre Franklin",Arial,sans-serif;font-weight:600;font-style:normal;color:#8E1B2E;text-shadow:none;}
+body[data-theme="academic"] .name,body[data-theme="academic"] .detail-title{font-family:"Libre Baskerville",Georgia,serif;font-weight:700;font-style:normal;color:#1E2433;letter-spacing:normal;}
+body[data-theme="academic"] .description,body[data-theme="academic"] .detail-description{font-family:"Libre Franklin",Arial,sans-serif;font-weight:400;font-style:normal;color:#565C69;}
+body[data-theme="academic"] .event,body[data-theme="academic"] .detail-card,body[data-theme="academic"] .later .detail-card,body[data-theme="academic"] .detail-empty{background:#FFFFFF;border:1px solid #DAD6CC!important;border-radius:5px!important;box-shadow:none;}
+body[data-theme="academic"] .time{border-right:1px solid #DAD6CC;}
+body[data-theme="academic"] .section-label{color:#8E1B2E;font-family:"Libre Baskerville",Georgia,serif;text-shadow:none;}
+body[data-theme="academic"] #legend{background:#22304A;border-top:1px solid #DAD6CC;color:#F7F4EC;}
+/* Sports: Stadium Night */
+body[data-theme="sports"]{--bg:#0E1116;--card:#191E27;--ink:#FFFFFF;--accent:#FFD400;--muted:#AEB6C2;--header:#000000;--divider:#2B3240;--line:#FFD400;background:#0E1116;color:#FFFFFF;}
+body[data-theme="sports"] header{background:#000000;box-shadow:none;border:1px solid #2B3240;border-bottom:2px solid #FFD400;}
+body[data-theme="sports"] h1{font-family:"Bebas Neue",Arial,sans-serif;font-weight:400;font-style:normal;color:#FFFFFF;text-transform:uppercase;letter-spacing:.025em;text-shadow:none;}
+body[data-theme="sports"] #date{font-family:"Barlow Semi Condensed",Arial,sans-serif;font-weight:600;font-style:normal;color:#9AA3AF;text-transform:uppercase;letter-spacing:.19em;}
+body[data-theme="sports"] #clock{font-family:"Bebas Neue",Arial,sans-serif;font-weight:400;font-style:normal;color:#FFD400;text-shadow:none;}
+body[data-theme="sports"] .time,body[data-theme="sports"] .detail-time{font-family:"Bebas Neue",Arial,sans-serif;font-weight:400;font-style:normal;color:#FFD400;text-shadow:none;}
+body[data-theme="sports"] .name,body[data-theme="sports"] .detail-title{font-family:"Barlow Semi Condensed",Arial,sans-serif;font-weight:700;font-style:normal;color:#FFFFFF;letter-spacing:normal;}
+body[data-theme="sports"] .description,body[data-theme="sports"] .detail-description{font-family:"Barlow",Arial,sans-serif;font-weight:500;font-style:normal;color:#AEB6C2;}
+body[data-theme="sports"] .event,body[data-theme="sports"] .detail-card,body[data-theme="sports"] .later .detail-card,body[data-theme="sports"] .detail-empty{background:#191E27;border:1px solid #2B3240!important;border-radius:5px!important;box-shadow:none;}
+body[data-theme="sports"] .time{border-right:1px solid #2B3240;}
+body[data-theme="sports"] .section-label{color:#FFD400;font-family:"Barlow Semi Condensed",Arial,sans-serif;text-shadow:none;}
+body[data-theme="sports"] #legend{background:#000000;border-top:1px solid #2B3240;color:#FFFFFF;}
+/* Religious: Sanctuary */
+body[data-theme="religious"]{--bg:#F7F4EF;--card:#FFFFFF;--ink:#26222F;--accent:#5B4A8A;--muted:#5C5866;--header:#3B3355;--divider:#E2DDD3;--line:#C9A85A;background:#F7F4EF;color:#26222F;}
+body[data-theme="religious"] header{background:#3B3355;box-shadow:none;border:1px solid #E2DDD3;border-bottom:2px solid #C9A85A;}
+body[data-theme="religious"] h1{font-family:"Crimson Pro",Georgia,serif;font-weight:700;font-style:normal;color:#FAF7F0;text-transform:none;letter-spacing:.01em;text-shadow:none;}
+body[data-theme="religious"] #date{font-family:"Nunito Sans",Arial,sans-serif;font-weight:600;font-style:normal;color:#CFC7E0;text-transform:uppercase;letter-spacing:.19em;}
+body[data-theme="religious"] #clock{font-family:"Nunito Sans",Arial,sans-serif;font-weight:600;font-style:normal;color:#FAF7F0;text-shadow:none;}
+body[data-theme="religious"] .time,body[data-theme="religious"] .detail-time{font-family:"Nunito Sans",Arial,sans-serif;font-weight:700;font-style:normal;color:#5B4A8A;text-shadow:none;}
+body[data-theme="religious"] .name,body[data-theme="religious"] .detail-title{font-family:"Crimson Pro",Georgia,serif;font-weight:700;font-style:normal;color:#26222F;letter-spacing:normal;}
+body[data-theme="religious"] .description,body[data-theme="religious"] .detail-description{font-family:"Nunito Sans",Arial,sans-serif;font-weight:400;font-style:normal;color:#5C5866;}
+body[data-theme="religious"] .event,body[data-theme="religious"] .detail-card,body[data-theme="religious"] .later .detail-card,body[data-theme="religious"] .detail-empty{background:#FFFFFF;border:1px solid #E2DDD3!important;border-radius:5px!important;box-shadow:none;}
+body[data-theme="religious"] .time{border-right:1px solid #E2DDD3;}
+body[data-theme="religious"] .section-label{color:#5B4A8A;font-family:"Crimson Pro",Georgia,serif;text-shadow:none;}
+body[data-theme="religious"] #legend{background:#3B3355;border-top:1px solid #E2DDD3;color:#FAF7F0;}
+/* Memorial: Quiet Remembrance */
+body[data-theme="memorial"]{--bg:#EEEFF1;--card:#FAFAFB;--ink:#2A2F38;--accent:#4E5E73;--muted:#5A6170;--header:#FAFAFB;--divider:#DADDE2;--line:#8A96A8;background:#EEEFF1;color:#2A2F38;}
+body[data-theme="memorial"] header{background:#FAFAFB;box-shadow:none;border:1px solid #DADDE2;border-bottom:2px solid #8A96A8;}
+body[data-theme="memorial"] h1{font-family:"Alegreya",Georgia,serif;font-weight:700;font-style:normal;color:#2E3440;text-transform:none;letter-spacing:.01em;text-shadow:none;}
+body[data-theme="memorial"] #date{font-family:"Alegreya Sans",Arial,sans-serif;font-weight:500;font-style:normal;color:#5E6673;text-transform:uppercase;letter-spacing:.19em;}
+body[data-theme="memorial"] #clock{font-family:"Alegreya Sans",Arial,sans-serif;font-weight:500;font-style:normal;color:#2E3440;text-shadow:none;}
+body[data-theme="memorial"] .time,body[data-theme="memorial"] .detail-time{font-family:"Alegreya Sans",Arial,sans-serif;font-weight:700;font-style:normal;color:#4E5E73;text-shadow:none;}
+body[data-theme="memorial"] .name,body[data-theme="memorial"] .detail-title{font-family:"Alegreya",Georgia,serif;font-weight:700;font-style:normal;color:#2A2F38;letter-spacing:normal;}
+body[data-theme="memorial"] .description,body[data-theme="memorial"] .detail-description{font-family:"Alegreya Sans",Arial,sans-serif;font-weight:400;font-style:normal;color:#5A6170;}
+body[data-theme="memorial"] .event,body[data-theme="memorial"] .detail-card,body[data-theme="memorial"] .later .detail-card,body[data-theme="memorial"] .detail-empty{background:#FAFAFB;border:1px solid #DADDE2!important;border-radius:5px!important;box-shadow:none;}
+body[data-theme="memorial"] .time{border-right:1px solid #DADDE2;}
+body[data-theme="memorial"] .section-label{color:#4E5E73;font-family:"Alegreya",Georgia,serif;text-shadow:none;}
+body[data-theme="memorial"] #legend{background:#FAFAFB;border-top:1px solid #DADDE2;color:#2E3440;}
+body[data-theme="memorial"] header{border-image:none;}body[data-theme="memorial"] header::after{content:"";position:absolute;left:0;right:0;bottom:0;height:3px;background:linear-gradient(90deg,#8A96A8,#C4CAD3);}
+body[data-theme="memorial"] header{position:relative;border-bottom:0;}
+/* Vacation: Coastal Getaway */
+body[data-theme="vacation"]{--bg:#EAF6F7;--card:#FFFFFF;--ink:#153A40;--accent:#0B6B73;--muted:#4F6B70;--header:#0E7C86;--divider:#CBE7E9;--line:#FF7F61;background:#EAF6F7;color:#153A40;}
+body[data-theme="vacation"] header{background:#0E7C86;box-shadow:none;border:1px solid #CBE7E9;border-bottom:2px solid #FF7F61;}
+body[data-theme="vacation"] h1{font-family:"Pacifico",Georgia,serif;font-weight:400;font-style:normal;color:#FFFFFF;text-transform:none;letter-spacing:.01em;text-shadow:none;}
+body[data-theme="vacation"] #date{font-family:"Mulish",Arial,sans-serif;font-weight:600;font-style:normal;color:#D2F0F2;text-transform:uppercase;letter-spacing:.19em;}
+body[data-theme="vacation"] #clock{font-family:"Mulish",Arial,sans-serif;font-weight:700;font-style:normal;color:#FFFFFF;text-shadow:none;}
+body[data-theme="vacation"] .time,body[data-theme="vacation"] .detail-time{font-family:"Mulish",Arial,sans-serif;font-weight:800;font-style:normal;color:#0B6B73;text-shadow:none;}
+body[data-theme="vacation"] .name,body[data-theme="vacation"] .detail-title{font-family:"Mulish",Arial,sans-serif;font-weight:700;font-style:normal;color:#153A40;letter-spacing:normal;}
+body[data-theme="vacation"] .description,body[data-theme="vacation"] .detail-description{font-family:"Mulish",Arial,sans-serif;font-weight:400;font-style:normal;color:#4F6B70;}
+body[data-theme="vacation"] .event,body[data-theme="vacation"] .detail-card,body[data-theme="vacation"] .later .detail-card,body[data-theme="vacation"] .detail-empty{background:#FFFFFF;border:1px solid #CBE7E9!important;border-radius:5px!important;box-shadow:none;}
+body[data-theme="vacation"] .time{border-right:1px solid #CBE7E9;}
+body[data-theme="vacation"] .section-label{color:#0B6B73;font-family:"Mulish",Arial,sans-serif;text-shadow:none;}
+body[data-theme="vacation"] #legend{background:#0E7C86;border-top:1px solid #CBE7E9;color:#FFFFFF;}
+body[data-theme="vacation"] header{border-image:none;}body[data-theme="vacation"] header::after{content:"";position:absolute;left:0;right:0;bottom:0;height:3px;background:linear-gradient(90deg,#FF7F61,#F4C97A);}
+body[data-theme="vacation"] header{position:relative;border-bottom:0;}
+/* Wellness: Sage Calm */
+body[data-theme="wellness"]{--bg:#F3F5EF;--card:#FBFCF8;--ink:#26332A;--accent:#4C7A55;--muted:#5A665C;--header:#FBFCF8;--divider:#DDE3D6;--line:#8FB59A;background:#F3F5EF;color:#26332A;}
+body[data-theme="wellness"] header{background:#FBFCF8;box-shadow:none;border:1px solid #DDE3D6;border-bottom:2px solid #8FB59A;}
+body[data-theme="wellness"] h1{font-family:"Fraunces",Georgia,serif;font-weight:600;font-style:normal;color:#2F4032;text-transform:none;letter-spacing:.01em;text-shadow:none;}
+body[data-theme="wellness"] #date{font-family:"DM Sans",Arial,sans-serif;font-weight:500;font-style:normal;color:#5D6B5F;text-transform:uppercase;letter-spacing:.19em;}
+body[data-theme="wellness"] #clock{font-family:"DM Sans",Arial,sans-serif;font-weight:500;font-style:normal;color:#2F4032;text-shadow:none;}
+body[data-theme="wellness"] .time,body[data-theme="wellness"] .detail-time{font-family:"DM Sans",Arial,sans-serif;font-weight:600;font-style:normal;color:#4C7A55;text-shadow:none;}
+body[data-theme="wellness"] .name,body[data-theme="wellness"] .detail-title{font-family:"Fraunces",Georgia,serif;font-weight:600;font-style:normal;color:#26332A;letter-spacing:normal;}
+body[data-theme="wellness"] .description,body[data-theme="wellness"] .detail-description{font-family:"DM Sans",Arial,sans-serif;font-weight:400;font-style:normal;color:#5A665C;}
+body[data-theme="wellness"] .event,body[data-theme="wellness"] .detail-card,body[data-theme="wellness"] .later .detail-card,body[data-theme="wellness"] .detail-empty{background:#FBFCF8;border:1px solid #DDE3D6!important;border-radius:5px!important;box-shadow:none;}
+body[data-theme="wellness"] .time{border-right:1px solid #DDE3D6;}
+body[data-theme="wellness"] .section-label{color:#4C7A55;font-family:"Fraunces",Georgia,serif;text-shadow:none;}
+body[data-theme="wellness"] #legend{background:#FBFCF8;border-top:1px solid #DDE3D6;color:#2F4032;}
+body[data-theme="wellness"] header{border-image:none;}body[data-theme="wellness"] header::after{content:"";position:absolute;left:0;right:0;bottom:0;height:3px;background:linear-gradient(90deg,#8FB59A,#D9A889);}
+body[data-theme="wellness"] header{position:relative;border-bottom:0;}
+/* Keep theme-specific fonts consistent when responsive layout scales them. */
+
+/* RC5: hold initial screen until the first configuration is rendered. */
+body.kiosk-loading #kiosk-shell{visibility:hidden}
+#detail-subtitle{font-size:clamp(13px,1.8vw,36px);font-weight:600;line-height:1.2;overflow-wrap:anywhere;margin-top:2px}
+#detail-subtitle[hidden]{display:none}
+/* Align the typographic center of All Day with the timed rows. */
+.event:not(.tall) .time.all-day{padding-bottom:0!important}
+/* Prevent font-dependent time-range collisions without altering event copy. */
+.event .time:not(.all-day){min-width:0;column-gap:0!important}
+.event .time-start,.event .time-end,.event .time-dash{min-width:0;white-space:nowrap}
+
+#detail-header-wrap[hidden]{display:none!important}
+
+/* RC6: only calendar source colors may appear as event edge stripes. */
+.event, .detail-card{border-left-width:0!important}
+.event .source-color, .detail-card .source-color{border-left:0!important}
+/* RC6: All Day baseline should match timed ranges; both use same centering. */
+.event:not(.tall) .time.all-day{padding-bottom:0!important;transform:none!important}
+.event .time{display:flex!important;align-items:center!important;justify-content:center!important;line-height:1.15!important}
+.event .time.all-day{align-self:stretch!important;min-height:0!important}
+.event.tall .time{align-items:flex-start!important}
+/* Subtitle follows the title's theme color, rather than inheriting body ink. */
+#detail-subtitle{color:inherit}
+header:has(#detail-subtitle:not([hidden])) #detail-subtitle{color:inherit}
+
+/* Align the visible All Day glyphs, not the entire time column/border. */
+.time.all-day .all-day-text{display:inline-block;position:relative;top:-.16em}
+
+/* v1.0-rc1: portrait kiosks rotate on landscape-output TVs. */
+#kiosk-shell{display:flex;flex-direction:column;width:100%;height:100%;overflow:hidden}
+body.rotate-portrait #kiosk-shell{position:fixed;top:0;left:100vw;width:100vh;height:100vw;transform-origin:top left;transform:rotate(90deg)}
+body.portrait-layout header{padding:clamp(8px,1vh,20px) clamp(8px,2vw,28px)}
+
+body.portrait-layout h1{font-size:clamp(17px,3vh,54px)}
+body.portrait-layout #date{font-size:clamp(10px,1.1vh,19px)}
+body.portrait-layout #clock{font-size:clamp(16px,2.4vh,46px)}
+
+/* v1.0 RC3: portrait event cards use the space for typography, not padding. */
+body.portrait-layout .event{padding:3px 9px;gap:10px;align-items:center}
+body.portrait-layout .event .body{justify-content:center}
+body.portrait-layout .event .name,body.portrait-layout .event .description{line-height:1.09;white-space:normal;overflow-wrap:anywhere}
+body.portrait-layout .event .description{margin-top:3px}
+body.portrait-layout .event .time{padding-right:8px;line-height:1.05}
+body.portrait-layout .event .time-start,body.portrait-layout .event .time-end,body.portrait-layout .event .time-dash{white-space:nowrap}
+body.portrait-layout .event .all-day-text{top:0}
+
+/* v1.0 RC4: keep whole words together, including in theme-specific styles. */
+body.portrait-layout .event .name,body.portrait-layout .event .description{
+ overflow-wrap:normal!important;word-wrap:normal!important;word-break:normal!important;
+ hyphens:none!important;white-space:pre-wrap!important;
+}
+body.portrait-layout .event .time{line-height:1.04}
+
+/* v1.0 RC5: compact portrait time stack; consistent whole-word typography. */
+body.portrait-layout .event .time{line-height:1!important;padding-top:0!important;padding-bottom:0!important}
+body.portrait-layout .event .time-start,body.portrait-layout .event .time-end{line-height:1.02!important;margin:0!important;padding:0!important}
+body.portrait-layout .event .time-dash{line-height:.55!important;margin:0!important;padding:0!important}
+body.portrait-layout .event .name,body.portrait-layout .event .description{overflow-wrap:normal!important;word-break:normal!important;hyphens:none!important}
+
+/* v1.0 RC6: normalize the portrait start / separator / end stack across
+   all theme fonts. Equal line boxes and a centered separator avoid inherited
+   font ascender/descender metrics creating unequal visual gaps. */
+body.portrait-layout .event .time:not(.all-day){
+ display:grid!important;grid-template-columns:minmax(0,1fr)!important;
+ grid-template-rows:minmax(0,1fr) auto minmax(0,1fr)!important;
+ align-content:center!important;justify-items:stretch!important;
+ align-items:center!important;row-gap:0!important;column-gap:0!important;
+}
+body.portrait-layout .event .time:not(.all-day) .time-start,
+body.portrait-layout .event .time:not(.all-day) .time-end{
+ display:flex!important;align-items:center!important;justify-content:center!important;
+ width:100%!important;height:100%!important;line-height:1!important;
+ margin:0!important;padding:0!important;white-space:nowrap!important;
+}
+body.portrait-layout .event .time:not(.all-day) .time-dash{
+ display:flex!important;align-items:center!important;justify-content:center!important;
+ width:100%!important;height:.45em!important;line-height:1!important;
+ margin:0!important;padding:0!important;transform:none!important;
+}
+
+/* v1.0 RC7: keep Android WebView/Onn from auto-darkening author colors.
+   This is the same color-scheme opt-out used by Max's Menu. */
+:root,html,body,#kiosk-shell{color-scheme:only light!important}
+
+/* v1.0 RC7: symmetrical three-zone portrait time stack.
+   Equal-height tracks place the dash at the mathematical midpoint of the
+   start/end text centers; no theme-specific margins or font-dependent auto rows. */
+body.portrait-layout .event .time:not(.all-day){
+ display:grid!important;grid-template-columns:minmax(0,1fr)!important;
+ grid-template-rows:repeat(3,minmax(0,1fr))!important;
+ align-content:stretch!important;align-items:stretch!important;
+ justify-items:stretch!important;row-gap:0!important;
+ padding-top:0!important;padding-bottom:0!important;
+}
+body.portrait-layout .event .time:not(.all-day) > .time-start,
+body.portrait-layout .event .time:not(.all-day) > .time-dash,
+body.portrait-layout .event .time:not(.all-day) > .time-end{
+ display:flex!important;align-items:center!important;justify-content:center!important;
+ height:100%!important;min-height:0!important;width:100%!important;
+ line-height:1!important;margin:0!important;padding:0!important;
+ transform:none!important;align-self:stretch!important;
+}
+body.portrait-layout .event .time:not(.all-day) > .time-start{grid-row:1!important}
+body.portrait-layout .event .time:not(.all-day) > .time-dash{grid-row:2!important}
+body.portrait-layout .event .time:not(.all-day) > .time-end{grid-row:3!important}
+
+
+/* RC7 portrait compact-time test patch v1 */
+/* Override RC7's equal fractional rows with a centered content-sized stack. */
+body.portrait-layout .event .time:not(.all-day) {
+  display: grid !important;
+  grid-template-columns: minmax(0,1fr) !important;
+  grid-template-rows: repeat(3, max-content) !important;
+  align-content: center !important;
+  align-items: center !important;
+  justify-items: stretch !important;
+  row-gap: 0 !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+body.portrait-layout .event .time:not(.all-day) > .time-start,
+body.portrait-layout .event .time:not(.all-day) > .time-end {
+  height: auto !important;
+  min-height: 0 !important;
+  line-height: 1 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  align-self: center !important;
+}
+body.portrait-layout .event .time:not(.all-day) > .time-dash {
+  height: .48em !important;
+  min-height: 0 !important;
+  line-height: .48 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  align-self: center !important;
+}
+
+
+/* RC7 CSS-drawn portrait time separator test v1 */
+/* The entire time group is content-height and centered in the event card. */
+body.portrait-layout .event .time:not(.all-day) {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  align-content: center !important;
+  gap: 0 !important;
+  height: 100% !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+body.portrait-layout .event .time:not(.all-day) > .time-start,
+body.portrait-layout .event .time:not(.all-day) > .time-end {
+  display: block !important;
+  flex: 0 0 auto !important;
+  width: 100% !important;
+  height: auto !important;
+  min-height: 0 !important;
+  line-height: 1 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  text-align: center !important;
+  align-self: center !important;
+}
+body.portrait-layout .event .time:not(.all-day) > .time-dash {
+  display: block !important;
+  flex: 0 0 auto !important;
+  width: .38em !important;
+  height: 3px !important;
+  min-height: 0 !important;
+  border: 0 !important;
+  border-radius: 1px !important;
+  background: currentColor !important;
+  font-size: inherit !important;
+  line-height: 0 !important;
+  margin: .10em auto !important;
+  padding: 0 !important;
+  transform: none !important;
+  align-self: center !important;
+}
+/* Landscape uses its existing horizontal three-column time layout. */
+
+
+/* RC7 restore landscape dash after CSS separator patch v1 */
+/* Landscape keeps the original visible text dash. Portrait hides the glyph
+   by setting its font size to zero, while retaining the CSS-drawn line. */
+body.portrait-layout .event .time:not(.all-day) > .time-dash {
+  font-size: 0 !important;
+  width: 18px !important;
+  height: 3px !important;
+  line-height: 0 !important;
+  background: currentColor !important;
+  margin: 4px auto !important;
+}
+

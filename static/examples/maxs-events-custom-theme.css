@@ -1,0 +1,51 @@
+/* Max's Events Custom CSS Theme - sample template (RC7)
+ * Download, edit, rename, and upload this file under Themes > Custom.
+ * This stylesheet is loaded AFTER the built-in kiosk styles.
+ * It applies to BOTH List View and Detail View, on screens selecting that theme.
+ * No external @import, url(), or font downloads are supported.
+ * Use fonts already installed on the kiosk player or included with Max's Events.
+ */
+
+/* Overall background, text, and reusable theme colors */
+body[data-theme="custom"] {
+  --bg: #101e32;       /* page background */
+  --card: #20344d;     /* event cards */
+  --ink: #ffffff;      /* general text */
+  --accent: #7bd6ff;   /* time labels */
+  --muted: #d1deed;    /* descriptions and date */
+  --header: #0b1727;   /* top header background */
+  --divider: #52647c;  /* borders */
+  --line: #7bd6ff;     /* scroll loop separator */
+  background: var(--bg);
+  color: var(--ink);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Header and clock: common to both views */
+body[data-theme="custom"] header { background: var(--header); border-bottom: 3px solid var(--accent); }
+body[data-theme="custom"] h1 { color: #ffffff; font-weight: 800; }
+body[data-theme="custom"] #detail-subtitle { color: #ffffff; }
+body[data-theme="custom"] #date { color: var(--muted); }
+body[data-theme="custom"] #clock { color: var(--accent); }
+
+/* List View event rows, times, titles and descriptions */
+body[data-theme="custom"] .event { background: var(--card); border-radius: 8px; }
+body[data-theme="custom"] .time { color: var(--accent); border-right: 2px solid var(--divider); }
+body[data-theme="custom"] .name { color: #ffffff; font-weight: 700; }
+body[data-theme="custom"] .description { color: var(--muted); }
+body[data-theme="custom"] .cycle-separator { background: var(--line); }
+
+/* Detail View: NOW/NEXT and LATER sections */
+body[data-theme="custom"] .section-label { color: var(--accent); }
+body[data-theme="custom"] .detail-card,
+body[data-theme="custom"] .detail-empty { background: var(--card); border-radius: 8px; }
+body[data-theme="custom"] .detail-time { color: var(--accent); }
+body[data-theme="custom"] .detail-title { color: #ffffff; }
+body[data-theme="custom"] .detail-description { color: var(--muted); }
+
+/* Optional calendar color indicators and legend */
+body[data-theme="custom"] #legend { background: var(--header); color: #ffffff; }
+/* .source-color and .legend-dot use per-calendar colors set in Calendar Sources. */
+
+/* The application computes --time-font, --title-font, --desc-font and
+ * --time-width for responsive layout. Avoid overriding them unless needed. */

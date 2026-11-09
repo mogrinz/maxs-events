@@ -1,0 +1,36 @@
+name: Publish v1.0 release
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  release:
+    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[release]')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install -r requirements.txt pytest
+      - run: python -m pytest -q tests --ignore=tests/test_product.py --ignore=tests/test_rc3.py
+      - run: python install_theme_fonts.py
+      - run: python build_release.py
+      - name: Publish release ZIP
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          version="$(python -c 'from models import VERSION; print(VERSION)')"
+          tag="v${version}"
+          if gh release view "$tag" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            echo "Release $tag already exists; refusing to overwrite."; exit 1
+          fi
+          gh release create "$tag" "../maxs-events-v1.0-offline.zip" \
+            --repo "$GITHUB_REPOSITORY" --target "$GITHUB_SHA" \
+            --title "Max's Events $tag" --notes-file RELEASE_V1.0.md

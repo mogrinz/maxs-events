@@ -1,0 +1,10 @@
+{% extends 'base.html' %}{% block title %}Themes · Max's Events{% endblock %}{% block scripts %}<script src="/static/events-themes.js?v=0.10rc7" defer></script>{% endblock %}{% block content %}
+<h1>Themes</h1><p>Select a built-in theme or choose Custom to upload and switch between your own CSS theme files. The selected theme applies to screens using the global theme.</p>
+<section class="account-panel"><div class="toolbar"><label>Schedule theme<select id="theme-picker"></select></label><button class="primary" id="theme-save" type="button">Save Theme</button></div>
+<div id="custom-theme-panel" hidden><h2>Custom CSS themes</h2><p><a href="/static/examples/maxs-events-custom-theme.css" download="maxs-events-custom-theme.css">Download sample CSS theme template</a>. Edit the file on your computer, then upload it here. Uploaded themes remain available after reboots and upgrades.</p>
+<label>Uploaded custom theme<select id="custom-theme-picker"></select></label>
+<form id="custom-theme-upload" enctype="multipart/form-data"><div class="toolbar"><label>Theme name (optional)<input id="custom-theme-name" maxlength="80" placeholder="Uses filename if blank"></label><label>CSS file<input id="custom-theme-file" type="file" accept=".css,text/css" required></label><button type="submit" class="primary">Upload CSS Theme</button></div></form>
+<div class="toolbar custom-theme-actions"><button id="custom-theme-delete" type="button" class="danger">Delete Selected Theme</button><span id="custom-theme-status" role="status" aria-live="polite"></span></div>
+</div><p id="theme-status" role="status" aria-live="polite"></p></section>
+<section class="account-panel schedule-preview-panel"><h2>Theme preview</h2><p>Changes in this preview are not published until you save. The theme applies to screens using the global theme.</p><label>Preview screen<select id="theme-screen">{% for n in range(1,21) %}<option value="{{n}}">Screen {{n}}</option>{% endfor %}</select></label><iframe id="theme-preview" title="Theme preview"></iframe></section>
+{% endblock %}

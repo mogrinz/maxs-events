@@ -1,0 +1,322 @@
+[
+  {
+    "family": "Alegreya",
+    "weight": 700,
+    "italic": false
+  },
+  {
+    "family": "Alegreya Sans",
+    "weight": 400,
+    "italic": false
+  },
+  {
+    "family": "Alegreya Sans",
+    "weight": 500,
+    "italic": false
+  },
+  {
+    "family": "Alegreya Sans",
+    "weight": 700,
+    "italic": false
+  },
+  {
+    "family": "Anton",
+    "weight": 400,
+    "italic": false
+  },
+  {
+    "family": "Barlow",
+    "weight": 500,
+    "italic": false
+  },
+  {
+    "family": "Barlow",
+    "weight": 600,
+    "italic": false
+  },
+  {
+    "family": "Barlow Semi Condensed",
+    "weight": 600,
+    "italic": false
+  },
+  {
+    "family": "Barlow Semi Condensed",
+    "weight": 700,
+    "italic": false
+  },
+  {
+    "family": "Bebas Neue",
+    "weight": 400,
+    "italic": false
+  },
+  {
+    "family": "Berkshire Swash",
+    "weight": 400,
+    "italic": false
+  },
+  {
+    "family": "Bungee",
+    "weight": 400,
+    "italic": false
+  },
+  {
+    "family": "Chakra Petch",
+    "weight": 600,
+    "italic": false
+  },
+  {
+    "family": "Cormorant Garamond",
+    "weight": 600,
+    "italic": false
+  },
+  {
+    "family": "Cormorant Garamond",
+    "weight": 600,
+    "italic": true
+  },
+  {
+    "family": "Crimson Pro",
+    "weight": 700,
+    "italic": false
+  },
+  {
+    "family": "DM Sans",
+    "weight": 400,
+    "italic": false
+  },
+  {
+    "family": "DM Sans",
+    "weight": 500,
+    "italic": false
+  },
+  {
+    "family": "DM Sans",
+    "weight": 600,
+    "italic": false
+  },
+  {
+    "family": "DM Serif Display",
+    "weight": 400,
+    "italic": false
+  },
+  {
+    "family": "Fraunces",
+    "weight": 600,
+    "italic": false
+  },
+  {
+    "family": "Fredoka",
+    "weight": 600,
+    "italic": false
+  },
+  {
+    "family": "Great Vibes",
+    "weight": 400,
+    "italic": false
+  },
+  {
+    "family": "IBM Plex Mono",
+    "weight": 400,
+    "italic": false
+  },
+  {
+    "family": "Inter",
+    "weight": 400,
+    "italic": false
+  },
+  {
+    "family": "Inter",
+    "weight": 500,
+    "italic": false
+  },
+  {
+    "family": "Inter",
+    "weight": 600,
+    "italic": false
+  },
+  {
+    "family": "Libre Baskerville",
+    "weight": 700,
+    "italic": false
+  },
+  {
+    "family": "Libre Franklin",
+    "weight": 400,
+    "italic": false
+  },
+  {
+    "family": "Libre Franklin",
+    "weight": 500,
+    "italic": false
+  },
+  {
+    "family": "Libre Franklin",
+    "weight": 600,
+    "italic": false
+  },
+  {
+    "family": "Lora",
+    "weight": 400,
+    "italic": true
+  },
+  {
+    "family": "Lora",
+    "weight": 600,
+    "italic": false
+  },
+  {
+    "family": "Merriweather",
+    "weight": 700,
+    "italic": false
+  },
+  {
+    "family": "Merriweather Sans",
+    "weight": 400,
+    "italic": false
+  },
+  {
+    "family": "Merriweather Sans",
+    "weight": 600,
+    "italic": false
+  },
+  {
+    "family": "Merriweather Sans",
+    "weight": 700,
+    "italic": false
+  },
+  {
+    "family": "Montserrat",
+    "weight": 800,
+    "italic": false
+  },
+  {
+    "family": "Mulish",
+    "weight": 400,
+    "italic": false
+  },
+  {
+    "family": "Mulish",
+    "weight": 600,
+    "italic": false
+  },
+  {
+    "family": "Mulish",
+    "weight": 700,
+    "italic": false
+  },
+  {
+    "family": "Mulish",
+    "weight": 800,
+    "italic": false
+  },
+  {
+    "family": "Nunito",
+    "weight": 500,
+    "italic": false
+  },
+  {
+    "family": "Nunito Sans",
+    "weight": 400,
+    "italic": false
+  },
+  {
+    "family": "Nunito Sans",
+    "weight": 600,
+    "italic": false
+  },
+  {
+    "family": "Nunito Sans",
+    "weight": 700,
+    "italic": false
+  },
+  {
+    "family": "Outfit",
+    "weight": 400,
+    "italic": false
+  },
+  {
+    "family": "Outfit",
+    "weight": 500,
+    "italic": false
+  },
+  {
+    "family": "Outfit",
+    "weight": 600,
+    "italic": false
+  },
+  {
+    "family": "Pacifico",
+    "weight": 400,
+    "italic": false
+  },
+  {
+    "family": "Press Start 2P",
+    "weight": 400,
+    "italic": false
+  },
+  {
+    "family": "Roboto Mono",
+    "weight": 500,
+    "italic": false
+  },
+  {
+    "family": "Rubik",
+    "weight": 400,
+    "italic": false
+  },
+  {
+    "family": "Rubik",
+    "weight": 600,
+    "italic": false
+  },
+  {
+    "family": "Rubik",
+    "weight": 700,
+    "italic": false
+  },
+  {
+    "family": "Sora",
+    "weight": 700,
+    "italic": false
+  },
+  {
+    "family": "Source Sans 3",
+    "weight": 400,
+    "italic": false
+  },
+  {
+    "family": "Source Sans 3",
+    "weight": 600,
+    "italic": false
+  },
+  {
+    "family": "Source Sans 3",
+    "weight": 700,
+    "italic": false
+  },
+  {
+    "family": "Source Serif 4",
+    "weight": 600,
+    "italic": false
+  },
+  {
+    "family": "VT323",
+    "weight": 400,
+    "italic": false
+  },
+  {
+    "family": "Work Sans",
+    "weight": 400,
+    "italic": false
+  },
+  {
+    "family": "Work Sans",
+    "weight": 500,
+    "italic": false
+  },
+  {
+    "family": "Work Sans",
+    "weight": 600,
+    "italic": false
+  }
+]

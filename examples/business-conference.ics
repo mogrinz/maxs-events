@@ -1,0 +1,124 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Event List Themes//Sample Calendar//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+NAME:Business Conference
+X-WR-CALNAME:Business Conference
+DESCRIPTION:Sample events for the Business Conference theme (Corporate Navy
+ ).
+X-WR-CALDESC:Sample events for the Business Conference theme (Corporate Nav
+ y).
+X-WR-TIMEZONE:America/New_York
+BEGIN:VTIMEZONE
+TZID:America/New_York
+X-LIC-LOCATION:America/New_York
+BEGIN:DAYLIGHT
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0400
+TZNAME:EDT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=2SU
+END:DAYLIGHT
+BEGIN:STANDARD
+TZOFFSETFROM:-0400
+TZOFFSETTO:-0500
+TZNAME:EST
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYMONTH=11;BYDAY=1SU
+END:STANDARD
+END:VTIMEZONE
+BEGIN:VEVENT
+UID:2aa02281466a0879-business-conference@event-list-themes.example
+DTSTAMP:20261106T010835Z
+DTSTART;VALUE=DATE:20261105
+DTEND;VALUE=DATE:20261106
+RRULE:FREQ=DAILY
+SUMMARY:Registration & Badge Pickup
+DESCRIPTION:Main lobby. Bring your confirmation email or photo ID.
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:3667dcd8ec720c5b-business-conference@event-list-themes.example
+DTSTAMP:20261106T010835Z
+DTSTART;VALUE=DATE:20261105
+DTEND;VALUE=DATE:20261106
+RRULE:FREQ=DAILY
+SUMMARY:Sponsor Expo Hall
+DESCRIPTION:Meet our partners and see product demos in Hall B.
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:a359eeaffa9b20b7-business-conference@event-list-themes.example
+DTSTAMP:20261106T010835Z
+DTSTART;VALUE=DATE:20261105
+DTEND;VALUE=DATE:20261106
+RRULE:FREQ=DAILY
+SUMMARY:Networking Lounge
+DESCRIPTION:Coffee\, charging stations and space to connect.
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:a35073a8f2bad1e5-business-conference@event-list-themes.example
+DTSTAMP:20261106T010835Z
+DTSTART;TZID=America/New_York:20261105T080000
+DTEND;TZID=America/New_York:20261105T084500
+RRULE:FREQ=DAILY
+SUMMARY:Continental Breakfast
+DESCRIPTION:Served outside the Grand Ballroom.
+END:VEVENT
+BEGIN:VEVENT
+UID:a60fbd5444157d2e-business-conference@event-list-themes.example
+DTSTAMP:20261106T010835Z
+DTSTART;TZID=America/New_York:20261105T090000
+DTEND;TZID=America/New_York:20261105T094500
+RRULE:FREQ=DAILY
+SUMMARY:Opening Keynote
+DESCRIPTION:The year ahead: strategy\, growth and what's next.
+END:VEVENT
+BEGIN:VEVENT
+UID:7e5a49df8a88a9e1-business-conference@event-list-themes.example
+DTSTAMP:20261106T010835Z
+DTSTART;TZID=America/New_York:20261105T100000
+DTEND;TZID=America/New_York:20261105T104500
+RRULE:FREQ=DAILY
+SUMMARY:Breakout Sessions
+DESCRIPTION:Choose from four tracks. See your program for room assignments.
+END:VEVENT
+BEGIN:VEVENT
+UID:c1afb0c19cdfaa08-business-conference@event-list-themes.example
+DTSTAMP:20261106T010835Z
+DTSTART;TZID=America/New_York:20261105T110000
+DTEND;TZID=America/New_York:20261105T114500
+RRULE:FREQ=DAILY
+SUMMARY:Panel: The Future of Work
+DESCRIPTION:Leaders discuss hybrid teams\, AI and the changing workplace.
+END:VEVENT
+BEGIN:VEVENT
+UID:8c28642e1f3078c1-business-conference@event-list-themes.example
+DTSTAMP:20261106T010835Z
+DTSTART;TZID=America/New_York:20261105T120000
+DTEND;TZID=America/New_York:20261105T130000
+RRULE:FREQ=DAILY
+SUMMARY:Networking Lunch
+DESCRIPTION:Grand Ballroom. Tables are grouped by industry.
+END:VEVENT
+BEGIN:VEVENT
+UID:0ff8ea3c6460b9cd-business-conference@event-list-themes.example
+DTSTAMP:20261106T010835Z
+DTSTART;TZID=America/New_York:20261105T131500
+DTEND;TZID=America/New_York:20261105T140000
+RRULE:FREQ=DAILY
+SUMMARY:Workshop: Leading Through Change
+DESCRIPTION:Practical tools for guiding teams through transitions.
+END:VEVENT
+BEGIN:VEVENT
+UID:48241b3d9234c221-business-conference@event-list-themes.example
+DTSTAMP:20261106T010835Z
+DTSTART;TZID=America/New_York:20261105T141500
+DTEND;TZID=America/New_York:20261105T150000
+RRULE:FREQ=DAILY
+SUMMARY:Closing Keynote & Awards
+DESCRIPTION:Celebrating this year's leadership award winners.
+END:VEVENT
+END:VCALENDAR

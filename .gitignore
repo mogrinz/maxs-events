@@ -1,0 +1,27 @@
+# Runtime data and private configuration
+/data/
+.events.env
+.menu.env
+.env
+.env.*
+!.env.example
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.vscode/
+.idea/
+patch-backups/
+maxs-events-backup*/
+maxs-menu-backups/
+pre-restore-backups/
+*backup*.json
+*.log
+*.zip
+*.tar
+*.tar.gz
+*.img
+*.img.xz
+*.img.gz
+.DS_Store
+Thumbs.db

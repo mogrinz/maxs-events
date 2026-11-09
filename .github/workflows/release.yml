@@ -29,8 +29,14 @@ jobs:
           version="$(python -c 'from models import VERSION; print(VERSION)')"
           tag="v${version}"
           if gh release view "$tag" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
-            echo "Release $tag already exists; refusing to overwrite."; exit 1
+            echo "Updating existing release $tag with current source."
+            gh release upload "$tag" "../maxs-events.zip" \
+              --repo "$GITHUB_REPOSITORY" --clobber
+            # Keep the tag and generated GitHub source archives aligned with the updated asset.
+            gh api --method PATCH "repos/$GITHUB_REPOSITORY/git/refs/tags/$tag" \
+              -f sha="$GITHUB_SHA" -F force=true
+          else
+            gh release create "$tag" "../maxs-events.zip" \
+              --repo "$GITHUB_REPOSITORY" --target "$GITHUB_SHA" \
+              --title "Max's Events $tag" --notes-file RELEASE_V1.0.md
           fi
-          gh release create "$tag" "../maxs-events.zip" \
-            --repo "$GITHUB_REPOSITORY" --target "$GITHUB_SHA" \
-            --title "Max's Events $tag" --notes-file RELEASE_V1.0.md

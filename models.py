@@ -344,7 +344,7 @@ class Store:
 
     def change_own_password(self, user, password):
         if user["role"] not in {"admin"}:
-            raise Forbidden("Employee accounts cannot change passwords.")
+            raise Forbidden("Editor accounts cannot change passwords.")
         with self.lock:
             current = self.user(user["username"])
             if not current or current["token"] != user["token"]:
@@ -367,7 +367,7 @@ class Store:
                 if len(rows) >= 50:
                     raise ValueError("At most 50 accounts are supported.")
                 if role not in {"admin", "editor"}:
-                    raise ValueError("Choose Administrator or Employee.")
+                    raise ValueError("Choose Administrator or Editor.")
                 rows.append(make_user(username, password, role))
             elif not current:
                 raise ValueError("User does not exist.")
@@ -382,7 +382,7 @@ class Store:
                 current["token"] = secrets.token_hex(16)
             elif operation == "role":
                 if role not in {"admin", "editor"}:
-                    raise ValueError("Choose Administrator or Employee.")
+                    raise ValueError("Choose Administrator or Editor.")
                 current["role"] = role
                 current["token"] = secrets.token_hex(16)
             elif operation == "delete":

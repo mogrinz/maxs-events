@@ -15,7 +15,7 @@
     list.replaceChildren();
     for(const user of users){
       const row=el('section',undefined,'account');
-      row.append(el('h2',user.username),el('p',(user.role==='admin'?'Administrator':'Employee')+' · '+(user.enabled?'Enabled':'Disabled')));
+      row.append(el('h2',user.username),el('p',(user.role==='admin'?'Administrator':'Editor')+' · '+(user.enabled?'Enabled':'Disabled')));
       const form=el('form'),toolbar=el('div',undefined,'toolbar'),label=el('label','New password for '+user.username),input=el('input');
       input.type='password';input.autocomplete='new-password';input.minLength=4;input.maxLength=64;input.required=true;
       label.append(input);const reset=el('button','Reset password');reset.type='submit';toolbar.append(label,reset);form.append(toolbar);
@@ -23,7 +23,7 @@
       row.append(form);
       const actions=el('div',undefined,'row-actions');
       actions.append(
-        button(user.role==='admin'?'Make employee':'Make administrator',()=>action({username:user.username,operation:'role',role:user.role==='admin'?'editor':'admin'})),
+        button(user.role==='admin'?'Make Editor':'Make Administrator',()=>action({username:user.username,operation:'role',role:user.role==='admin'?'editor':'admin'})),
         button(user.enabled?'Disable account':'Enable account',()=>action({username:user.username,operation:'enabled',enabled:!user.enabled})),
         button('Delete account',()=>{if(confirm('Delete account '+user.username+'?'))action({username:user.username,operation:'delete'});},'danger')
       );

@@ -17,6 +17,8 @@ The server can use an existing network or create an optional offline Wi-Fi hotsp
 - Administrator accounts, backups, network configuration and an optional Pi-hosted Wi-Fi hotspot.
 - Local screens run on Android/Google TV, a tablet, or a computer browser. On some Android/Google TVs, Fully Kiosk can run directly without an extra streaming stick.
 
+**Show only an event's start time:** Set the event's start and end times to the same time in its iCalendar source. Max's Events will then display just the start time, without a dash or end time, in both List and Detail views.
+
 **How it works:** the Pi serves web pages over Wi-Fi or Ethernet; it does *not* drive the TVs via HDMI cables. Each display loads its assigned URL and refreshes its event data from the Pi.
 
 ## What you'll need

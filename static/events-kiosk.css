@@ -572,3 +572,7 @@ body.portrait-layout .event .time:not(.all-day) > .time-dash {
   margin: 4px auto !important;
 }
 
+
+/* A zero-duration timed event shows one centered start time, without a separator. */
+.event .time.single-time{grid-template-columns:minmax(0,1fr)!important;justify-items:center!important}
+.event .time.single-time > .time-start{grid-column:1!important;text-align:center!important;width:100%}

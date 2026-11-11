@@ -28,3 +28,13 @@ def test_upgrade_preserves_application_data():
     assert 'network_service' not in s
     assert 'rm -' not in s
     assert 'data' in s
+
+def test_equal_start_end_time_shows_only_start_in_list_and_detail():
+    js=(ROOT/'static/events-kiosk.js').read_text()
+    css=(ROOT/'static/events-kiosk.css').read_text()
+    assert 'function sameDisplayTime(r)' in js
+    assert "fmtTime(r.start)!==fmtTime(r.end)" in js
+    assert "sameDisplayTime(r)?'':' – '+fmtTime(r.end)" in js
+    assert "time.classList.add('single-time');time.append(s)" in js
+    assert 'time.textContent=timeText(r)' in js
+    assert '.time.single-time' in css
